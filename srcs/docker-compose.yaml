@@ -1,0 +1,55 @@
+services:
+#----------------------------------------------------BACKEND
+  backend:
+    #Naming system for image and container
+    image: image-backend
+    container_name: backNGINX
+
+    #Building image locally from Dockerfile
+    build:
+      context: ./0-backend-NGINX
+      dockerfile: Dockerfile
+
+    #Container support
+    networks:
+      - inception-net
+    volumes:
+      - ./0-backend-NGINX/hostBindMount:/containerBindMount
+
+    command: tail -f /dev/null
+
+#----------------------------------------------------DATABASE
+  database:
+    container_name: dbMARIA
+    image: image-database
+    build:
+      context: ./1-database-MARIA
+      dockerfile: Dockerfile
+    
+    networks:
+      - inception-net
+    volumes:
+      - ./1-database-MARIA/hostBindMount:/containerBindMount
+
+    command: tail -f /dev/null
+
+#----------------------------------------------------FRONTEND
+  frontend-app:
+    container_name: frontWP
+    image: image-front
+    build:
+      context: ./2-frontend-WP
+      dockerfile: Dockerfile
+
+    networks:
+      - inception-net
+    volumes:
+      - ./2-frontend-WP/hostBindMount:/containerBindMount
+
+    command: tail -f /dev/null
+
+#----------------------------------------------------SUPPORT
+networks:
+  inception-net:
+    name: inception-bridge
+    driver: bridge
