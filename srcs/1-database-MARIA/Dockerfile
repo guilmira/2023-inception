@@ -1,1 +1,1 @@
-FROM busybox
+FROM debian:buster

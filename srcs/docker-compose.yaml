@@ -13,10 +13,12 @@ services:
     #Container support
     networks:
       - inception-net
+    ports:
+      - "80:80"
     volumes:
       - ./0-backend-NGINX/hostBindMount:/containerBindMount
 
-    command: tail -f /dev/null
+    
 
 #----------------------------------------------------DATABASE
   database:
