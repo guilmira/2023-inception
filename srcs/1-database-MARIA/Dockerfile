@@ -13,6 +13,7 @@ RUN echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
 
 #RUN echo "FLUSH PRIVILEGES;" >> config.sql
 
+#service mysql start
 RUN	service mysql start 
 #RUN mysql < config.sql
 
