@@ -1,9 +1,10 @@
+version: "3"
 services:
 #----------------------------------------------------BACKEND
   backend:
     #Naming system for image and container
     image: image-backend
-    container_name: backNGINX
+    container_name: container-backNGINX
 
     #Building image locally from Dockerfile
     build:
@@ -14,15 +15,16 @@ services:
     networks:
       - inception-net
     ports:
-      - "80:80"
-    volumes:
-      - ./0-backend-NGINX/hostBindMount:/containerBindMount
-
+      - "443:80"
     
-
+    env_file:
+      - .env
+    depends_on:
+      - frontend #depende del frontend montado en WP por cuestiones de configuración de NGINX
+    restart: always #if it stops in an unexpected way, it will restart.
 #----------------------------------------------------DATABASE
   database:
-    container_name: dbMARIA
+    container_name: container-dbMARIA
     image: image-database
     build:
       context: ./1-database-MARIA
@@ -30,14 +32,22 @@ services:
     
     networks:
       - inception-net
+    ports:
+     - 3306:3306 #por defecto mariaDB
+    
     volumes:
-      - ./1-database-MARIA/hostBindMount:/containerBindMount
+      - volume-database:/container-volume
 
+    env_file:
+      - .env
+
+    restart: always
+    #--env MARIADB_ROOT_PASSWORD=my-secret-pw
+    #_GUILLE admin username must not include 'admin' or 'Admin' (e.g., admin, administrator, Admin-login, admin-123, and so forth)
     command: tail -f /dev/null
-
 #----------------------------------------------------FRONTEND
-  frontend-app:
-    container_name: frontWP
+  frontend:
+    container_name: container-frontWP
     image: image-front
     build:
       context: ./2-frontend-WP
@@ -45,13 +55,24 @@ services:
 
     networks:
       - inception-net
+    #ports:
+     # -
     volumes:
-      - ./2-frontend-WP/hostBindMount:/containerBindMount
+      - volume-frontend:/container-volume
 
+    depends_on:
+      - database
+    restart: always
+
+    
     command: tail -f /dev/null
 
 #----------------------------------------------------SUPPORT
 networks:
   inception-net:
-    name: inception-bridge
+    name: network-inception
     driver: bridge
+
+volumes:
+  volume-database:
+  volume-frontend:

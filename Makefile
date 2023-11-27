@@ -6,7 +6,7 @@
 #    By: guilmira <guilmira@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/23 13:04:18 by guilmira          #+#    #+#              #
-#    Updated: 2023/11/23 15:00:46 by guilmira         ###   ########.fr        #
+#    Updated: 2023/11/27 16:44:08 by guilmira         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@ COMPOSE-PATH	= ./srcs
 
 #--------------------------------------------------------------------------------------------------------------SOURCES
 SRCS		= --file $(COMPOSE-PATH)/docker-compose.yaml
-NAME-BACK	= backNGINX
-NAME-DB		= dbMARIA
-NAME-FRONT	= frontWP
+NAME-BACK	= container-backNGINX
+NAME-DB		= container-dbMARIA
+NAME-FRONT	= container-frontWP
 #--------------------------------------------------------------------------------------------------------------COMMANDS
 REMOVE		= docker system prune --force
 #--------------------------------------------------------------------------------------------------------------RULES
@@ -29,16 +29,22 @@ $(NAME):
 all: $(NAME)
 
 exe:
-	docker exec -ti $(NAME-BACK) sh
+	docker exec -ti $(NAME-BACK) bash
 
 exe1:
-	docker exec -ti $(NAME-DB) sh
+	docker exec -ti $(NAME-DB) bash
+
+kill1:
+	docker kill $(NAME-DB)
+	docker container prune --force
+	docker rmi --force image-database
 
 exe2:
-	docker exec -ti $(NAME-FRONT) sh
+	docker exec -ti $(NAME-FRONT) bash
 
 clean:
-	docker-compose $(SRCS) down
+	docker-compose $(SRCS) kill
+	docker container prune --force
 
 stop:
 	docker-compose $(SRCS) stop
@@ -49,6 +55,7 @@ kill:
 
 fclean: clean
 	@$(REMOVE)
+	docker rmi $$(docker image ls -a -q)
 
 re:
 	docker-compose $(SRCS) restart
