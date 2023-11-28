@@ -39,7 +39,7 @@ services:
     networks:
       - inception-net
     ports:
-     - 3306:3306 #por defecto mariaDB
+     - "3306:3306" #por defecto mariaDB //db running mysql -u root -p
     #VOLUMES AND SUPPORT-------------------------------------
     volumes:
       - volume-database:/volume-container
@@ -59,21 +59,21 @@ services:
     networks:
       - inception-net
     #ports:
-     # -
+    #  - "9000:80"
     #VOLUMES AND SUPPORT-------------------------------------
     volumes:
       - volume-frontend:/volume-container
     depends_on:
-      - database
+      - database #it strongly requires the DB to be built first.
+    env_file:
+      - .env
     restart: always
 
-    
-    #command: tail -f /dev/null
-
+    command: tail -f /dev/null
 #----------------------------------------------------SUPPORT
 networks:
   inception-net:
-    name: network-inception
+    name: inception-network
     driver: bridge
 
 volumes:
