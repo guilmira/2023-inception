@@ -2,70 +2,73 @@ version: "3"
 services:
 #----------------------------------------------------BACKEND
   backend:
-    #Naming system for image and container
+    #NAMING SYSTEM------------------------------------------
     image: image-backend
     container_name: container-backNGINX
-
-    #Building image locally from Dockerfile
+    #BUILD from Dockerfile----------------------------------
     build:
       context: ./0-backend-NGINX
       dockerfile: Dockerfile
-
-    #Container support
+    #NETWORK AND EXPOSED PORTS-------------------------------
     networks:
       - inception-net
     ports:
       - "443:80"
-    
+    #VOLUMES AND SUPPORT-------------------------------------
     env_file:
       - .env
     depends_on:
-      - frontend #depende del frontend montado en WP por cuestiones de configuración de NGINX
-    restart: always #if it stops in an unexpected way, it will restart.
+      - frontend #it depends on the frontend WP (NGINX configuration)
+    restart: always #restart it unexpected stop
 #----------------------------------------------------DATABASE
   database:
+    #NAMING SYSTEM------------------------------------------
     container_name: container-dbMARIA
     image: image-database
+    #BUILD from Dockerfile----------------------------------
     build:
       context: ./1-database-MARIA
       dockerfile: Dockerfile
-    
+      args:
+        DB_NAME: ${DB_NAME}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_ADMIN_USER: ${MYSQL_ADMIN_USER}
+    #NETWORK AND EXPOSED PORTS-------------------------------
     networks:
       - inception-net
     ports:
      - 3306:3306 #por defecto mariaDB
-    
+    #VOLUMES AND SUPPORT-------------------------------------
     volumes:
-      - volume-database:/container-volume
-
+      - volume-database:/volume-container
     env_file:
       - .env
-
     restart: always
-    #--env MARIADB_ROOT_PASSWORD=my-secret-pw
-    #_GUILLE admin username must not include 'admin' or 'Admin' (e.g., admin, administrator, Admin-login, admin-123, and so forth)
-    command: tail -f /dev/null
 #----------------------------------------------------FRONTEND
   frontend:
+    #NAMING SYSTEM------------------------------------------
     container_name: container-frontWP
     image: image-front
+    #BUILD from Dockerfile----------------------------------
     build:
       context: ./2-frontend-WP
       dockerfile: Dockerfile
-
+    #NETWORK AND EXPOSED PORTS-------------------------------
     networks:
       - inception-net
     #ports:
      # -
+    #VOLUMES AND SUPPORT-------------------------------------
     volumes:
-      - volume-frontend:/container-volume
-
+      - volume-frontend:/volume-container
     depends_on:
       - database
     restart: always
 
     
-    command: tail -f /dev/null
+    #command: tail -f /dev/null
 
 #----------------------------------------------------SUPPORT
 networks:
@@ -75,4 +78,6 @@ networks:
 
 volumes:
   volume-database:
+    name: volume-database
   volume-frontend:
+    name: volume-frontend
