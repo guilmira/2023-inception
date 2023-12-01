@@ -3,8 +3,8 @@ services:
 #----------------------------------------------------BACKEND
   backend:
     #NAMING SYSTEM------------------------------------------
-    image: image-backend
-    container_name: container-backNGINX
+    image: image-nginx
+    container_name: container-nginx
     #BUILD from Dockerfile----------------------------------
     build:
       context: ./0-backend-NGINX
@@ -13,10 +13,10 @@ services:
     networks:
       - inception-net
     ports:
-      - "443:80"
+      - "443:443"
     #VOLUMES AND SUPPORT-------------------------------------
     volumes:
-      - volume-frontend:/volume-container
+      - volume-frontend:/var/www/html
     env_file:
       - .env
     depends_on:
@@ -25,8 +25,8 @@ services:
 #----------------------------------------------------DATABASE
   database:
     #NAMING SYSTEM------------------------------------------
-    container_name: container-dbMARIA
-    image: image-database
+    container_name: container-mariadb
+    image: image-mariadb
     #BUILD from Dockerfile----------------------------------
     build:
       context: ./1-database-MARIA
@@ -44,15 +44,15 @@ services:
     # - "3306:3306" #por defecto mariaDB //db running mysql -u root -p
     #VOLUMES AND SUPPORT-------------------------------------
     volumes:
-      - volume-database:/volume-container
+      - volume-database:/var/lib/mysql/
     env_file:
       - .env
     restart: always
 #----------------------------------------------------FRONTEND
   frontend:
     #NAMING SYSTEM------------------------------------------
-    container_name: container-frontWP
-    image: image-front
+    container_name: container-wordpress
+    image: image-wordpress
     #BUILD from Dockerfile----------------------------------
     build:
       context: ./2-frontend-WP
@@ -64,14 +64,12 @@ services:
     #  - "9000:80"
     #VOLUMES AND SUPPORT-------------------------------------
     volumes:
-      - volume-frontend:/volume-container
+      - volume-frontend://var/www/html
     depends_on:
       - database #it strongly requires the DB to be built first.
     env_file:
       - .env
     restart: always
-
-    command: tail -f /dev/null
 #----------------------------------------------------SUPPORT
 networks:
   inception-net:
