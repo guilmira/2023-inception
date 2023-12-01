@@ -40,8 +40,6 @@ services:
     #NETWORK AND EXPOSED PORTS-------------------------------
     networks:
       - inception-net
-    #ports:
-    # - "3306:3306" #por defecto mariaDB //db running mysql -u root -p
     #VOLUMES AND SUPPORT-------------------------------------
     volumes:
       - volume-database:/var/lib/mysql/
@@ -60,11 +58,9 @@ services:
     #NETWORK AND EXPOSED PORTS-------------------------------
     networks:
       - inception-net
-    #ports:
-    #  - "9000:80"
     #VOLUMES AND SUPPORT-------------------------------------
     volumes:
-      - volume-frontend://var/www/html
+      - volume-frontend:/var/www/html
     depends_on:
       - database #it strongly requires the DB to be built first.
     env_file:
