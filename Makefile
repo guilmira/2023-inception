@@ -6,7 +6,7 @@
 #    By: guilmira <guilmira@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/23 13:04:18 by guilmira          #+#    #+#              #
-#    Updated: 2023/12/02 14:21:42 by guilmira         ###   ########.fr        #
+#    Updated: 2023/12/02 17:34:56 by guilmira         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,11 @@ exe:
 
 exe1:
 	docker exec -ti $(NAME-DB) bash
+
+logs:
+	docker logs $(NAME-FRONT)
+	docker logs $(NAME-DB)
+	docker logs $(NAME-BACK)
 
 kill0:
 	docker kill container-wordpress
@@ -61,6 +66,7 @@ kill:
 fclean: clean
 	@$(REMOVE)
 	docker rmi $$(docker image ls -a -q)
+	docker volume prune -f
 
 re:
 	docker-compose $(SRCS) restart
