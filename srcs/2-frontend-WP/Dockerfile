@@ -7,6 +7,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && mv wp-cli.phar /usr/local/bin/wp
 
 COPY ./scriptfront.sh /scriptfront.sh
+COPY ./scriptfront.sh /etc/php/7.3/fpm/pool.d
 
 
 RUN chmod 777 scriptfront.sh
