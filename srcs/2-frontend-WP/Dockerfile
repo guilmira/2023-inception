@@ -10,5 +10,5 @@ COPY ./scriptfront.sh /scriptfront.sh
 
 
 RUN chmod 777 scriptfront.sh
-CMD ["tail", "-f", "/dev/null"]
-#CMD ["./scriptfront.sh"]
+#CMD ["tail", "-f", "/dev/null"]
+CMD ["./scriptfront.sh"]
