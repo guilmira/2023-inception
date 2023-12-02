@@ -33,9 +33,8 @@ services:
       dockerfile: Dockerfile
       args:
         DB_NAME: ${DB_NAME}
-        MYSQL_USER: ${MYSQL_USER}
-        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_ROOT_PASSWORD2: ${MYSQL_ROOT_PASSWORD2}
         MYSQL_ADMIN_USER: ${MYSQL_ADMIN_USER}
     #NETWORK AND EXPOSED PORTS-------------------------------
     networks:

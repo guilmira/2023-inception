@@ -6,7 +6,7 @@
 #    By: guilmira <guilmira@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/23 13:04:18 by guilmira          #+#    #+#              #
-#    Updated: 2023/11/27 16:44:08 by guilmira         ###   ########.fr        #
+#    Updated: 2023/12/02 14:21:42 by guilmira         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,9 @@ COMPOSE-PATH	= ./srcs
 
 #--------------------------------------------------------------------------------------------------------------SOURCES
 SRCS		= --file $(COMPOSE-PATH)/docker-compose.yaml
-NAME-BACK	= container-backNGINX
-NAME-DB		= container-dbMARIA
-NAME-FRONT	= container-frontWP
+NAME-BACK	= container-nginx
+NAME-DB		= container-mariadb
+NAME-FRONT	= container-wordpress
 #--------------------------------------------------------------------------------------------------------------COMMANDS
 REMOVE		= docker system prune --force
 #--------------------------------------------------------------------------------------------------------------RULES
@@ -33,6 +33,11 @@ exe:
 
 exe1:
 	docker exec -ti $(NAME-DB) bash
+
+kill0:
+	docker kill container-wordpress
+	docker rmi -f image-wordpress
+	
 
 kill1:
 	docker kill $(NAME-DB)
