@@ -1,5 +1,5 @@
 #!/bin/bash
-mkdir /var/www/ && mkdir /var/www/html
+mkdir /var/www/html
 cd /var/www/html && rm -rf * #the remove is in case volumes left something stored.
 wp core download --allow-root
 # change lines in wp-config.php file to connect with database
