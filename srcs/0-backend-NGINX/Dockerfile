@@ -10,5 +10,6 @@ RUN openssl req -x509 -nodes -days 365 -subj \
 	-keyout /etc/ssl/private/guilmira.key -out /etc/ssl/certs/guilmira.crt
 
 RUN rm -rf /etc/nginx/sites-enabled/*
+#COPY tools/default.conf /etc/nginx/conf.d/
 COPY ./default.conf /etc/nginx/default.conf
 CMD ["nginx", "-g", "daemon off;"]
