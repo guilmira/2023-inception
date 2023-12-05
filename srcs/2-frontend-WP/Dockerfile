@@ -1,15 +1,14 @@
 FROM debian:buster
-RUN apt update && apt install php-fpm php-mysql curl mariadb-client -y
-
+#RUN apt update && apt install php-fpm php-mysql mariadb-client curl -y
+RUN apt update && apt install php7.3 php7.3-mysqli php7.3-fpm wget mariadb-client -y
+#curl
 #instalar CLI y darle permisos. fundamental para configurar WP de manera "sencilla"
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-    && chmod +x wp-cli.phar \
-    && mv wp-cli.phar /usr/local/bin/wp
+#RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+#    && chmod +x wp-cli.phar \
+#    && mv wp-cli.phar /usr/local/bin/wp
+RUN	wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 
 COPY ./scriptfront.sh /scriptfront.sh
-COPY ./scriptfront.sh /etc/php/7.3/fpm/pool.d
-
-
+COPY ./www.conf /etc/php/7.3/fpm/pool.d/www.conf
 RUN chmod 777 scriptfront.sh
-#CMD ["tail", "-f", "/dev/null"]
 CMD ["./scriptfront.sh"]
