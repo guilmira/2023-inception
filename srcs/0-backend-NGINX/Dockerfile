@@ -6,6 +6,6 @@ RUN openssl req -x509 -nodes -days 365 -subj "/C=CA/ST=QC/O=42Madrid, Inc./CN=gu
 
 RUN rm -rf /etc/nginx/sites-enabled/*
 #COPY ./default.conf /etc/nginx/default.conf
-COPY tools/default.conf /etc/nginx/conf.d/
+COPY ./default.conf /etc/nginx/conf.d/
 #CMD ["tail", "-f", "/dev/null"]
 CMD ["nginx", "-g", "daemon off;"]
