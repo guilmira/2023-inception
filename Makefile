@@ -6,7 +6,7 @@
 #    By: guilmira <guilmira@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/23 13:04:18 by guilmira          #+#    #+#              #
-#    Updated: 2023/12/06 11:50:59 by guilmira         ###   ########.fr        #
+#    Updated: 2023/12/06 13:16:46 by guilmira         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,7 @@ fclean: clean
 	@$(REMOVE)
 	docker rmi $$(docker image ls -a -q)
 	docker volume prune -f
+	docker volume rm volume-frontend volume-database
 
 re:
 	docker-compose $(SRCS) restart
