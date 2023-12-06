@@ -6,7 +6,7 @@
 #    By: guilmira <guilmira@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/23 13:04:18 by guilmira          #+#    #+#              #
-#    Updated: 2023/12/02 17:34:56 by guilmira         ###   ########.fr        #
+#    Updated: 2023/12/06 11:50:59 by guilmira         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,11 @@ $(NAME):
 	@echo $(GREEN) "$(NAME) running. Containers up." $(NONE)
 
 all: $(NAME)
+
+git:
+	git add .
+	git commit -m "2"
+	git push
 
 exe:
 	docker exec -ti $(NAME-BACK) bash
