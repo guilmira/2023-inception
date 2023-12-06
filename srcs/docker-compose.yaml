@@ -74,5 +74,15 @@ networks:
 volumes:
   volume-database:
     name: volume-database
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/guilmira/data/volume-database'
   volume-frontend:
     name: volume-frontend
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/guilmira/data/volume-frontend'
