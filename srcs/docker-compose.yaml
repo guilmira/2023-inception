@@ -20,7 +20,7 @@ services:
     env_file:
       - .env
     depends_on:
-      - frontend #it depends on the frontend WP (NGINX configuration)
+      - frontend #requires WP (explained in NGINX configuration)
     restart: always #restart it unexpected stop
 #----------------------------------------------------DATABASE
   database:
@@ -61,7 +61,7 @@ services:
     volumes:
       - volume-frontend:/var/www/html
     depends_on:
-      - database #it strongly requires the DB to be built first.
+      - database # DB must be built first.
     env_file:
       - .env
     restart: always
