@@ -6,7 +6,7 @@
 #    By: guilmira <guilmira@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/23 13:04:18 by guilmira          #+#    #+#              #
-#    Updated: 2023/12/06 13:49:04 by guilmira         ###   ########.fr        #
+#    Updated: 2023/12/07 18:07:44 by guilmira         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ all: $(NAME)
 
 git:
 	git add .
-	git commit -m "2"
+	git commit -m "standard commit"
 	git push
 
 exe:
@@ -50,12 +50,10 @@ kill:
 fclean: clean
 	@$(REMOVE)
 	docker rmi $$(docker image ls -a -q)
-	docker volume prune -f
 	docker volume rm volume-frontend volume-database
 
 re:
 	docker-compose $(SRCS) restart
-
 
 .PHONY: all exe kill clean fclean re
 #--------------------------------------------------------------------------------------------------------------FORMAT
