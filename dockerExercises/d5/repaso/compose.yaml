@@ -1,0 +1,16 @@
+services:
+  busybox:
+    container_name: whale11
+    ports:
+      - "3000:3000"
+    networks:
+      - redguille
+    volumes:
+      - ./hostBM:/machineBM
+    image: nodejs
+    command: tail -f /dev/null
+
+networks:
+  redguille:
+    name: redguille
+    driver: bridge

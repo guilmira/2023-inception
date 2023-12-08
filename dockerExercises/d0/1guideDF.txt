@@ -1,0 +1,23 @@
+CREANDO UN DOCKERFILE
+Ensambla una imagen de contenedor. Igual que las imagenes de Debian, de busybox etc, todas parten de un FROM. Son dockerfile.
+
+docker build -t .
+
+-t: tag le damos un 
+
+FROM alpine:latest
+RUN apk update && apk add --no-cache vim
+RUN apk add --no-cache build-base
+COPY ./archivoDeCopia.txt .
+RUN mv archivoDeCopia.txt nuevoArchivo.txt (con RUN funcionara, pero no con CMD)
+RUN touch main.cpp
+#CMD echo "bring it on"
+
+-SOLO SE EJECUTA EL ULTIMO CMD. No funciona mas de 1.
+-CMD es siempre 1 sola instrucción. con RUN ejecutas todos los comandos para construir el contenedor, apk update , apt get , mv y lo que seaa. y luego con CMD le metes la ACCION que va a hacer el contenedor, como lanzar el servidor web.
+
+CMD -> es la instruccion que equivale a que yo me metiese en el contenedor para darle la instruccion explicitamente. TODO LO QUE SEA CONSTRUIR EL CONTENEDOR ES PARTE DE RUN, NO DE CMD
+
+La instrucción RUN se utiliza para ejecutar comandos durante el proceso de construcción de la imagen de Docker. Cada vez que se ejecuta un comando RUN, se crea una nueva capa en la imagen de Docker. Esta instrucción se utiliza comúnmente para configurar variables de entorno, instalar paquetes de software y realizar configuraciones necesarias para la imagen.
+Por otro lado, la instrucción CMD se utiliza para especificar el comando predeterminado que se ejecutará cuando se inicie un contenedor Docker a partir de la imagen. Este comando solo se ejecuta al iniciar el contenedor y puede ser anulado al pasar un comando diferente a la línea de comandos docker run. La instrucción CMD se utiliza típicamente para iniciar un servicio o una aplicación dentro del contenedor.
+

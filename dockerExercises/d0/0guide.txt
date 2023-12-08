@@ -1,0 +1,37 @@
+------------------------------------------------
+BASICO (alpine, busybox, debian)
+
+docker run alpine
+docker run -ti --rm alpine	con terminal y eliminando el contenedor
+
+(si no tienes la imagen, run hace un docker pull)
+
+-t :  --tty          Allocate a pseudo-TTY
+-i :--interactive  Keep STDIN open even if not attached
+OTRAS FLAGS UTILES
+-d : diatached
+
+-p: publish/port -p [host port::container port]
+la palabra clave es COMUNICACION. abre los puertos para permitir la interaccion entre host y contenedor, ie la base para que una arquitectura de microservicios pueda comunicarse con el contenedor.
+
+
+--name : nombrar
+
+puerto 80:80
+puerto 5000:5000
+puerto 40:40
+
+para conectarse a un contenedor deatached
+docker exec -ti (container name or id)  bash (or sh for alpine)
+------------------------------------------------
+
+
+
+
+------------------------------------------------
+LIMPIEZA prune = podar
+docker images -a (mostrar)
+docker image prune (eliminar las imagenes)
+docker container prune (eliminar instancias //los contenedores)
+------------------------------------------------
+

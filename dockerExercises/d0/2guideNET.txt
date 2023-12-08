@@ -1,0 +1,34 @@
+LINUX NET COMMANDS
+>ifconfig
+>ip address show
+>ping [IP]
+>nc -l -p [puerto] escuchar en el puerto X
+-----------------------------------------------------
+docker network ls
+docker inspect [NET_NAME, CONTAIER_NAME]
+docker inspect bridge (miramos la red default y lo que tiene conectado, y vemos su IP)
+-----------------------------------------------------
+DOCKER NETWORK (driver = network type)
+1. DEFAULT BRIDGE
+
+{	Conectar mediante nc
+
+		----contenedor server
+		>ip add (consultar ip: 172.17.0.3)
+		>nc -l -p 4242 (-listen -port)
+		----contenedor client
+		>nc 172.17.0.3 4242
+		(se te abre pantalla para enviar el string)
+}
+-----------------------------------------------------
+2. USER-DESGINED BRIDGE
+user-design bridge: exactamente lo mismo que la default, pero docker recomienda que el usuario cree una y no utilice la default siempre.
+
+docker network create REDGUILLE
+docker run -ti --network REDGUILLE busybox sh
+-----------------------------------------------------
+3. HOST NETWORK 
+docker run -ti --network host busybox sh
+directa al host
+4. MACVLAN
+conecta la red del container a la swich general de la red. Como si fuese una maquina mas en la casa, con acceso directo a internet. 

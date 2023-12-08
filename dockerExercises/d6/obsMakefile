@@ -1,0 +1,58 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: guilmira <guilmira@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/11/23 13:04:18 by guilmira          #+#    #+#              #
+#    Updated: 2023/11/23 13:50:02 by guilmira         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME		= inception
+ARGS		= input.txt
+#--------------------------------------------------------------------------------------------------------------COMPILER
+CXX			= c++
+CXXFLAGS	= -Wall -Wextra -Werror
+#--------------------------------------------------------------------------------------------------------------LIBS
+
+#--------------------------------------------------------------------------------------------------------------SOURCES
+SRCS		= --file compose.yaml
+OBJS		= $(SRCS:.cpp=.o)
+IMAGENAME	= alpine-based-image
+#--------------------------------------------------------------------------------------------------------------COMMANDS
+REMOVE		= docker system prune --force
+#--------------------------------------------------------------------------------------------------------------RULES
+$(NAME):
+	docker build --tag $(IMAGENAME) .
+	@echo $(GREEN) "$(IMAGENAME) built" $(NONE)
+	docker-compose $(SRCS) up --detach
+	@echo $(GREEN) "$(NAME) running. Containers up." $(NONE)
+
+all: $(NAME)
+
+exe:
+	docker exec -ti whale0 sh
+
+clean:
+	docker-compose $(SRCS) down
+
+stop:
+	docker-compose $(SRCS) stop
+
+kill:
+	docker-compose $(SRCS) kill
+
+
+fclean: clean
+	@$(REMOVE)
+
+re:
+	docker-compose $(SRCS) restart
+
+
+.PHONY: all exe stop kill clean fclean re
+#--------------------------------------------------------------------------------------------------------------FORMAT
+NONE='\033[0m'
+GREEN='\033[1;32m'

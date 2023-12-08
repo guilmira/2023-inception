@@ -1,0 +1,16 @@
+1. crear un buen dockerfile que cree una imagen chula que tenga lo basico, un alpine o un busybox, + apt + un editor de vim + gcc
+
+HECHO. El contenedor de alpine size -> 250.36 MB
+el contenedor de gcc size -> 1.38 GB
+
+2 Mañana, hacer un repaso haciendo lo siguiente
+Dockerfile de un debian basico con vim
+Una network de usuario. user defined bridge. luego dos contenedores dentro de esa red, y un NC para que hablen
+Empezar por la red default. HECHO
+
+2. Virtual machine para tener permisos y crear un redis siguiendo el docker tutorial 4 de TechWorld. Con eso nos vamos al dockerfile y sigo todo el tutorial de docker. min12. ahi te quedaste. o mas bien docker tut 8. es literal el inicio del inception
+
+3. aprender a hacer docker run con volumenes y luego a meterselo a un docker compose. DONE
+
+4. crear un contenedor de nginx y que funcione en localhost. DONE. tambien con wordpress
+

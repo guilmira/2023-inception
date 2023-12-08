@@ -1,0 +1,12 @@
+# referencia basica compose yaml.
+# docker-compose -f compose.yaml up -d (el de para en deatached)
+version: '3'
+services:
+  whale1:
+    container_name: whale1
+    image: busybox
+    command: tail -f /dev/null
+  whale2:
+    container_name: whale2
+    image: busybox
+    command: tail -f /dev/null

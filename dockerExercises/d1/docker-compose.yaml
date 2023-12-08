@@ -1,0 +1,20 @@
+#referencia 2, con redes
+version: '3'
+services:
+  whale1:
+    container_name: whale1
+    image: busybox
+    command: tail -f /dev/null
+    networks:
+      - redguille
+  whale2:
+    container_name: whale2
+    image: busybox
+    command: tail -f /dev/null
+    networks:
+      - redguille
+networks:
+  redguille:
+    name: redguille
+    driver: bridge #host
+#el compose al lanzarse sin indicar red crea por defecto una red llamada FOLDER-NAME_default donde mete todos los servicios enumerados. un "docker inspect d1_default te da la info de cómo todos los servicios se añaden a la misma red y pueden comunicarse con nc."

@@ -1,0 +1,22 @@
+services:
+  busybox:
+    container_name: whale1
+    image: busybox
+    command: tail -f /dev/null
+    networks:
+      - redguille
+    volumes:
+      - ./hostBM:/contBM #ejemplo de meter un bind mount 
+  busybox2:
+    container_name: whale2
+    image: busybox
+    command: tail -f /dev/null
+    networks:
+      - redguille
+
+networks:
+  redguille:
+    name: redguille
+    driver: bridge
+
+  

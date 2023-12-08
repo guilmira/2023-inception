@@ -1,0 +1,11 @@
+
+# docker-compose -f compose.yaml up -d (el de para en deatached)
+
+Default canonical compose file = compose.yaml
+it defines:
+Version (optional)
+Services (must)
+network
+Volumes
+Configs
+Secrets
